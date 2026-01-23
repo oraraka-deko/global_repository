@@ -1,10 +1,10 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:global_repository/global_repository.dart';
-import 'package:global_repository/src/widgets/widgets.dart';
 
 Color surface = Color(0xff050505);
 Color surfaceContainer = Color(0xff1E1E1E);
+// ??????
 Color onSurface = Colors.white;
 // 二级标题：Secondary Heading 或 Subheading
 // 三级标题：Tertiary Heading
@@ -85,24 +85,24 @@ class _DiaryPageState extends State<DiaryPage> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Padding(
-                  padding: EdgeInsets.symmetric(horizontal: l(8)),
+                  padding: EdgeInsets.symmetric(horizontal: w(8)),
                   child: Text(
                     diary.title.removeHeading,
                     style: TextStyle(
                       color: onSurface,
-                      fontSize: l(20),
+                      fontSize: w(20),
                       fontWeight: FontWeight.bold,
                     ),
                   ),
                 ),
-                SizedBox(height: l(10)),
+                SizedBox(height: w(10)),
                 if (diary.summary.isNotEmpty)
                   Material(
-                    borderRadius: BorderRadius.circular(l(12)),
+                    borderRadius: BorderRadius.circular(w(12)),
                     clipBehavior: Clip.hardEdge,
                     color: Color(0xff141414),
                     child: Padding(
-                      padding: EdgeInsets.all(l(10)),
+                      padding: EdgeInsets.all(w(10)),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -110,13 +110,13 @@ class _DiaryPageState extends State<DiaryPage> {
                             diary.summary,
                             style: TextStyle(
                               color: onSurface,
-                              fontSize: l(18),
+                              fontSize: w(18),
                               fontWeight: FontWeight.w500,
                             ),
                           ),
                           for (DiaryNode child in diary.children)
                             Padding(
-                              padding: EdgeInsets.symmetric(horizontal: l(8)),
+                              padding: EdgeInsets.symmetric(horizontal: w(8)),
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
@@ -124,29 +124,29 @@ class _DiaryPageState extends State<DiaryPage> {
                                     child.title.removeHeading,
                                     style: TextStyle(
                                       color: onSurface,
-                                      fontSize: l(18),
+                                      fontSize: w(18),
                                       fontWeight: FontWeight.bold,
                                     ),
                                   ),
-                                  SizedBox(height: l(10)),
+                                  SizedBox(height: w(10)),
                                   if (child.summary.isNotEmpty)
                                     Material(
-                                      borderRadius: BorderRadius.circular(l(12)),
+                                      borderRadius: BorderRadius.circular(w(12)),
                                       clipBehavior: Clip.hardEdge,
                                       color: const Color(0xff050505),
                                       child: Padding(
-                                        padding: EdgeInsets.all(l(10)),
+                                        padding: EdgeInsets.all(w(10)),
                                         child: Text(
                                           child.summary,
                                           style: TextStyle(
                                             color: onSurface,
-                                            fontSize: l(16),
+                                            fontSize: w(16),
                                             fontWeight: FontWeight.w500,
                                           ),
                                         ),
                                       ),
                                     ),
-                                  SizedBox(height: l(20)),
+                                  SizedBox(height: w(20)),
                                 ],
                               ),
                             ),
@@ -154,11 +154,10 @@ class _DiaryPageState extends State<DiaryPage> {
                       ),
                     ),
                   ),
-                SizedBox(height: l(20)),
+                SizedBox(height: w(20)),
               ],
             );
           }),
-        SizedBox(height: l(100)), // 底部留白
       ],
     );
   }

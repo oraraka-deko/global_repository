@@ -30,13 +30,13 @@ class _PrivacyAgreePageState extends State<PrivacyAgreePage> {
                       SystemNavigator.pop();
                     },
                     child: Container(
-                      height: 48.w,
+                      height: context.w(48),
                       color: Theme.of(context).primaryColor.withOpacity(0.08),
                       child: Center(
                         child: Text(
                           '我不同意',
                           style: TextStyle(
-                            fontSize: 16.w,
+                            fontSize: w(16),
                             color: Theme.of(context).colorScheme.onSurface,
                           ),
                         ),
@@ -51,12 +51,12 @@ class _PrivacyAgreePageState extends State<PrivacyAgreePage> {
                     },
                     child: Container(
                       color: Theme.of(context).primaryColor,
-                      height: 48.w,
+                      height: w(48),
                       child: Center(
                         child: Text(
                           '同意继续',
                           style: TextStyle(
-                            fontSize: 16.w,
+                            fontSize: w(16),
                             color: Theme.of(context).colorScheme.onPrimary,
                           ),
                         ),

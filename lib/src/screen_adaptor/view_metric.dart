@@ -5,16 +5,14 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:signale/signale.dart';
 
-class ScreenQuery extends InheritedWidget {
-  ScreenQuery({
+class ViewMetric extends InheritedWidget {
+  ViewMetric({
     required this.uiWidth,
     required Widget child,
     required this.screenWidth,
     double longWidthScale = 1.0,
   }) : super(child: child) {
     Log.i('ScreenQuery init -> uiWidth: $uiWidth, screenWidth: $screenWidth', 'ScreenQuery');
-    // TODO 屏幕适配这块一直很模糊
-    //
     if (uiWidth == 0) {
       return;
     }
@@ -42,52 +40,61 @@ class ScreenQuery extends InheritedWidget {
       return;
     }
     scale = screenWidth / uiWidth;
+    // cache 1 -> 64
+    for (double i = 0; i <= 1000; i++) {
+      _cache[i] = i * scale;
+    }
   }
 
+  static final Map<double, double> _cache = {};
   final double uiWidth;
   final double screenWidth;
   double scale = 1.0;
 
   @override
-  bool updateShouldNotify(covariant ScreenQuery oldWidget) {
+  bool updateShouldNotify(covariant ViewMetric oldWidget) {
     return oldWidget.scale != scale;
+  }
+
+  double v(num percent) {
+    return screenWidth * (percent / 100.0);
   }
 
   double setWidth(num width) {
     // Log.i('scale -> $scale', tag: 'ScreenAdapter');
-    return width * scale;
+    return _cache[width.toDouble()] ?? (width.toDouble() * scale);
   }
 
-  static ScreenQuery of(BuildContext context) {
-    return context.dependOnInheritedWidgetOfExactType<ScreenQuery>()!;
+  static ViewMetric of(BuildContext context) {
+    return context.dependOnInheritedWidgetOfExactType()!;
   }
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'ScreenQuery(uiWidth: $uiWidth, screenWidth: $screenWidth, scale: $scale)';
+    return 'ViewMetric(uiWidth: $uiWidth, screenWidth: $screenWidth, scale: $scale)';
   }
 }
 
-// 全局缓存 Map，使用 State 的 hashCode 作为 key
-final Map<int, ScreenQuery> _screenQueryCache = <int, ScreenQuery>{};
+extension ViewMetricStateExt on State {
+  @Deprecated('Use w(num width) instead')
+  double l(num width) => w(width);
 
-extension ScreenStateExt on State {
-  double l(num width) {
-    final int stateHash = hashCode;
-    ScreenQuery? cachedScreenQuery = _screenQueryCache[stateHash];
+  double w(num width) => ViewMetric.of(context).setWidth(width);
 
-    if (cachedScreenQuery == null) {
-      cachedScreenQuery = ScreenQuery.of(context);
-      _screenQueryCache[stateHash] = cachedScreenQuery;
-    }
+  double v(num percent) => ViewMetric.of(context).v(percent);
 
-    return cachedScreenQuery.setWidth(width);
-  }
+  double $(num width) => w(width);
 }
 
-extension ScreenContextExt on BuildContext {
-  // TODO need cache
-  double l(num width) {
-    return ScreenQuery.of(this).setWidth(width);
+extension ViewMetricContextExt on BuildContext {
+  @Deprecated('Use w(num width) instead')
+  double l(num width) => w(width);
+
+  double w(num width) {
+    return ViewMetric.of(this).setWidth(width);
+  }
+
+  double v(num percent) {
+    return ViewMetric.of(this).v(percent);
   }
 }

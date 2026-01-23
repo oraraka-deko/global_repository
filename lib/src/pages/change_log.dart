@@ -3,8 +3,10 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:global_repository/global_repository.dart';
 import 'package:global_repository/src/extension/color_ext.dart';
+import 'package:global_repository/src/pages/page.dart';
+import 'package:global_repository/src/screen_adaptor/view_metric.dart';
+import 'package:global_repository/src/toast/toast.dart';
 
 class ChangeNode {
   ChangeNode(this.title, this.summary);
@@ -86,21 +88,21 @@ class _ChangeLogPageState extends State<ChangeLogPage> {
     return Align(
       alignment: Alignment.topRight,
       child: Padding(
-        padding: EdgeInsets.all(l(36)),
+        padding: EdgeInsets.all(w(36)),
         child: FlippableWidget(
           angle: angle,
           front: Container(
-            width: l(48),
-            height: l(96),
+            width: w(48),
+            height: w(96),
             decoration: BoxDecoration(
-              color: Theme.of(context).colorScheme.primary.opacity02,
-              borderRadius: BorderRadius.circular(l(12)),
+              color: Theme.of(context).colorScheme.primary.opacity20,
+              borderRadius: BorderRadius.circular(context.w(12)),
             ),
             child: Center(
               child: widget.icon == null
                   ? Icon(
                       Icons.update,
-                      size: l(40),
+                      size: context.w(40),
                       color: Theme.of(context).colorScheme.primary,
                     )
                   : (widget.icon as dynamic).child,
@@ -120,7 +122,7 @@ class _ChangeLogPageState extends State<ChangeLogPage> {
             )
           : null,
       body: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 12.w),
+        padding: EdgeInsets.symmetric(horizontal: 12),
         child: ListView.builder(
           physics: const BouncingScrollPhysics(),
           controller: scrollController,
@@ -128,35 +130,35 @@ class _ChangeLogPageState extends State<ChangeLogPage> {
           itemBuilder: (c, i) {
             ChangeNode change = changes[i];
             return Padding(
-              padding: EdgeInsets.symmetric(vertical: 10.w),
+              padding: EdgeInsets.symmetric(vertical: w(10)),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 8.w),
+                    padding: EdgeInsets.symmetric(horizontal: w(8)),
                     child: Text(
                       change.title.removeSharp,
                       style: TextStyle(
-                        fontSize: change.title.containesSharp ? l(12) : l(14),
+                        fontSize: change.title.containesSharp ? w(12) : w(14),
                         fontWeight: FontWeight.bold,
                       ),
                     ),
                   ),
-                  SizedBox(height: l(4)),
+                  SizedBox(height: w(4)),
                   if (change.summary.isNotEmpty)
                     GlobalCardItem(
-                      padding: EdgeInsets.all(10.w),
+                      padding: EdgeInsets.all(w(10)),
                       child: SizedBox(
                         width: double.infinity,
                         child: GestureDetector(
                           onTap: () {
                             Clipboard.setData(ClipboardData(text: changes[i].summary));
-                            showToast('已复制到剪切板');
+                            Toast.show('已复制到剪切板');
                           },
                           child: Text(
                             changes[i].summary,
                             style: TextStyle(
-                              fontSize: l(12),
+                              fontSize: w(12),
                             ),
                           ),
                         ),

@@ -1,10 +1,10 @@
 import 'dart:async';
 
 import 'package:dio/dio.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:global_repository/src/widgets/screen_query.dart';
+import 'package:global_repository/src/screen_adaptor/view_metric.dart';
+import 'package:global_repository/src/toast/toast.dart';
 import 'package:global_repository/src/widgets/widgets.dart';
 import 'package:responsive_framework/responsive_framework.dart';
 import 'package:signale/signale.dart';
@@ -62,7 +62,7 @@ class _ProjBoardV2State extends State<ProjBoardV2> {
       boardItemsMap.putIfAbsent(item.app!, () => []).add(item);
     }
     boardItemsMap.removeWhere((key, value) => key == 'TND(TheNeoDesktop)');
-    if (boardItemsMap.isNotEmpty) currentApp ??= boardItemsMap.keys.first ?? null;
+    if (boardItemsMap.isNotEmpty) currentApp ??= boardItemsMap.keys.first;
     Log.i('boardItemsMap => ${boardItemsMap.keys}');
     setState(() {});
     WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -84,11 +84,11 @@ class _ProjBoardV2State extends State<ProjBoardV2> {
 
   @override
   Widget build(BuildContext context) {
-    Log.i('l(20) -> ${context.l(20)}');
-    Log.i('scale -> ${ScreenQuery.of(context).scale}');
+    Log.i('w(20) -> ${context.w(20)}');
+    Log.i('scale -> ${ViewMetric.of(context).scale}');
     bool isMobile = ResponsiveBreakpoints.of(context).isMobile;
     final textStyle = TextStyle(
-      fontSize: context.l(16),
+      fontSize: context.w(16),
       fontWeight: FontWeight.w500,
       color: onSurface,
     );
@@ -110,18 +110,18 @@ class _ProjBoardV2State extends State<ProjBoardV2> {
           scrollbarTheme: ScrollbarThemeData(
             thumbColor: WidgetStateProperty.all(Colors.grey.withOpacity(0.5)),
             trackColor: WidgetStateProperty.all(Colors.transparent),
-            radius: Radius.circular(l(20)),
-            thickness: WidgetStateProperty.all(l(6)),
-            crossAxisMargin: l(2),
-            mainAxisMargin: l(2),
-            minThumbLength: l(36),
+            radius: Radius.circular(w(20)),
+            thickness: WidgetStateProperty.all(w(6)),
+            crossAxisMargin: w(2),
+            mainAxisMargin: w(2),
+            minThumbLength: w(36),
           ),
         ),
         child: Scaffold(
           backgroundColor: surface,
           body: SafeAreaFix(
             child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: isMobile ? l(12) : l(32)),
+              padding: EdgeInsets.symmetric(horizontal: isMobile ? w(12) : w(32)),
               child: NestedScrollView(
                 headerSliverBuilder: (context, innerBoxIsScrolled) {
                   return [
@@ -131,12 +131,12 @@ class _ProjBoardV2State extends State<ProjBoardV2> {
                         delegate: SliverChildListDelegate([
                           Container(
                             width: double.infinity,
-                            height: l(56),
+                            height: w(56),
                             alignment: Alignment.centerLeft,
                             child: Text(
                               '项目看板',
                               style: TextStyle(
-                                fontSize: l(32),
+                                fontSize: w(32),
                                 fontWeight: FontWeight.bold,
                                 color: onSurface,
                               ),
@@ -145,25 +145,25 @@ class _ProjBoardV2State extends State<ProjBoardV2> {
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              SizedBox(height: l(32)),
+                              SizedBox(height: w(32)),
                               Text(
                                 '哈喽大家，为了让大家感知到我现在在做的事，和已经收录的问题，现在我把我自己的项目看板公开',
                                 textAlign: TextAlign.start,
                                 style: textStyle,
                               ),
-                              SizedBox(height: l(16)),
+                              SizedBox(height: w(16)),
                               Text(
                                 '后续会开发一个，需求加急功能，大家对比较关注的问题，可以点赞，我会优先处理',
                                 textAlign: TextAlign.start,
                                 style: textStyle,
                               ),
-                              SizedBox(height: l(20)),
+                              SizedBox(height: w(20)),
                               Text(
                                 '我目前是自由开发，给自己的要求是上一休六',
                                 textAlign: TextAlign.start,
                                 style: textStyle,
                               ),
-                              SizedBox(height: l(20)),
+                              SizedBox(height: w(20)),
                               Row(
                                 children: [
                                   Text(
@@ -176,7 +176,7 @@ class _ProjBoardV2State extends State<ProjBoardV2> {
                                   ),
                                 ],
                               ),
-                              SizedBox(height: l(20)),
+                              SizedBox(height: w(20)),
                               SelectTab<String>(
                                 onTabChange: (value) {
                                   rootPage = value;
@@ -185,7 +185,7 @@ class _ProjBoardV2State extends State<ProjBoardV2> {
                                 value: rootPage,
                                 tabs: headTabs,
                               ),
-                              SizedBox(height: l(20)),
+                              SizedBox(height: w(20)),
                             ],
                           ),
                         ]),
@@ -212,7 +212,7 @@ class _ProjBoardV2State extends State<ProjBoardV2> {
                             pinned: true,
                             delegate: _StickyHeaderDelegate(
                               child: SizedBox(
-                                height: l(40),
+                                height: w(40),
                                 child: SelectTab<String>(
                                   onTabChange: (value) {
                                     currentApp = value;
@@ -225,13 +225,13 @@ class _ProjBoardV2State extends State<ProjBoardV2> {
                             ),
                           ),
                           SliverToBoxAdapter(
-                            child: SizedBox(height: l(20)),
+                            child: SizedBox(height: w(20)),
                           ),
                           SliverToBoxAdapter(
                             child: BoardDetail(items: boardItemsMap[currentApp] ?? []),
                           ),
                           SliverToBoxAdapter(
-                            child: SizedBox(height: l(20)),
+                            child: SizedBox(height: w(20)),
                           ),
                         ] else if (rootPage == headTabs.last)
                           SliverToBoxAdapter(
@@ -287,7 +287,7 @@ class _BoardDetailState extends State<BoardDetail> {
     int maxItems = all.map((items) => items.length).reduce((a, b) => a > b ? a : b);
 
     // 估算高度：标题高度 + 间距 + (每个item的估算高度 * 数量) + 容器padding
-    return l(18) + l(8) + (maxItems * l(80)) + l(16) + l(100); // 添加一些额外空间
+    return w(18) + w(8) + (maxItems * w(80)) + w(16) + w(100); // 添加一些额外空间
   }
 
   @override
@@ -383,7 +383,7 @@ class _BoardDetailState extends State<BoardDetail> {
                 panAxis: PanAxis.free, // 允许自由方向平移
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  spacing: l(12),
+                  spacing: w(12),
                   mainAxisSize: MainAxisSize.max,
                   children: [
                     ...all.map(
@@ -393,23 +393,23 @@ class _BoardDetailState extends State<BoardDetail> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Padding(
-                              padding: EdgeInsets.only(left: l(8 + 8)),
+                              padding: EdgeInsets.only(left: w(8 + 8)),
                               child: Text(
                                 statusMap[items.first.status] ?? '',
                                 style: TextStyle(
                                   color: onSurface,
-                                  fontSize: l(18),
+                                  fontSize: w(18),
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
                             ),
-                            SizedBox(height: l(8)),
+                            SizedBox(height: w(8)),
                             Material(
                               color: surfaceContainer,
-                              borderRadius: BorderRadius.circular(l(20)),
+                              borderRadius: BorderRadius.circular(w(20)),
                               child: Container(
-                                width: l(300),
-                                padding: EdgeInsets.symmetric(horizontal: l(8), vertical: l(8)),
+                                width: w(300),
+                                padding: EdgeInsets.symmetric(horizontal: w(8), vertical: w(8)),
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
@@ -420,11 +420,11 @@ class _BoardDetailState extends State<BoardDetail> {
                                           return Container(
                                             decoration: BoxDecoration(
                                               color: surface,
-                                              borderRadius: BorderRadius.circular(l(12)),
+                                              borderRadius: BorderRadius.circular(w(12)),
                                             ),
                                             width: double.infinity,
-                                            margin: isLast ? null : EdgeInsets.only(bottom: l(12)),
-                                            padding: EdgeInsets.all(l(0)),
+                                            margin: isLast ? null : EdgeInsets.only(bottom: w(12)),
+                                            padding: EdgeInsets.all(w(0)),
                                             child: Stack(
                                               alignment: Alignment.bottomRight,
                                               children: [
@@ -436,7 +436,7 @@ class _BoardDetailState extends State<BoardDetail> {
                                                       children: [
                                                         Expanded(
                                                           child: Padding(
-                                                            padding: EdgeInsets.only(left: l(8), top: l(8)),
+                                                            padding: EdgeInsets.only(left: w(8), top: w(8)),
                                                             child: RichText(
                                                               text: TextSpan(
                                                                 children: [
@@ -448,7 +448,7 @@ class _BoardDetailState extends State<BoardDetail> {
                                                                     style: TextStyle(
                                                                       color: item.status == 'DONE' ? onSurface.withOpacity(0.7) : onSurface,
                                                                       decoration: item.status == 'DONE' ? TextDecoration.lineThrough : null,
-                                                                      fontSize: l(14),
+                                                                      fontSize: w(14),
                                                                       fontWeight: FontWeight.bold,
                                                                     ),
                                                                   ),
@@ -458,9 +458,9 @@ class _BoardDetailState extends State<BoardDetail> {
                                                           ),
                                                         ),
                                                         Padding(
-                                                          padding: EdgeInsets.only(left: l(8)),
+                                                          padding: EdgeInsets.only(left: w(8)),
                                                           child: Row(
-                                                            spacing: l(2),
+                                                            spacing: w(2),
                                                             children: [
                                                               Text(
                                                                 item.likeCount.toString(),
@@ -475,7 +475,7 @@ class _BoardDetailState extends State<BoardDetail> {
                                                                     await api.likeBoardItem(item.id!, {'user_identifier': 'nightmare_space_user'});
                                                                     item.increaseLikeCount();
                                                                     setState(() {});
-                                                                    showToast('催更成功~');
+                                                                    Toast.show('催更成功~');
                                                                   } catch (e) {
                                                                     Log.e('likeBoardItem error => $e');
                                                                   }
@@ -490,10 +490,10 @@ class _BoardDetailState extends State<BoardDetail> {
                                                     if (item.description.isNotEmpty)
                                                       Container(
                                                         decoration: BoxDecoration(
-                                                          borderRadius: BorderRadius.circular(l(12)),
+                                                          borderRadius: BorderRadius.circular(w(12)),
                                                         ),
                                                         width: double.infinity,
-                                                        padding: EdgeInsets.all(l(8)),
+                                                        padding: EdgeInsets.all(w(8)),
                                                         child: HighlightedText(
                                                           text: item.description,
                                                           isDone: item.status == 'DONE',
@@ -537,7 +537,7 @@ class HighlightedText extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Function l = context.l;
+    Function w = context.w;
     List<TextSpan> spans = [];
     text.split(' ').forEach((word) {
       if (word.startsWith('#')) {
@@ -546,7 +546,7 @@ class HighlightedText extends StatelessWidget {
           style: TextStyle(
             color: isDone ? Theme.of(context).primaryColor.withOpacity(0.7) : Theme.of(context).primaryColor,
             fontWeight: FontWeight.bold,
-            fontSize: l(14),
+            fontSize: w(14),
             decoration: isDone ? TextDecoration.lineThrough : null,
           ),
         ));
@@ -555,7 +555,7 @@ class HighlightedText extends StatelessWidget {
           text: '$word ',
           style: TextStyle(
             color: isDone ? onSurface.withOpacity(0.7) : onSurface,
-            fontSize: l(14),
+            fontSize: w(14),
             fontWeight: FontWeight.w500,
             decoration: isDone ? TextDecoration.lineThrough : null,
           ),

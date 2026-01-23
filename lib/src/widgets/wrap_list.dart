@@ -1,9 +1,7 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-import 'package:global_repository/src/utils/screen_util.dart';
 import 'package:responsive_framework/responsive_framework.dart';
+
+import '../screen_adaptor/view_metric.dart';
 
 class MyApp extends StatefulWidget {
   const MyApp({Key? key}) : super(key: key);
@@ -38,7 +36,7 @@ class _MyAppState extends State<MyApp> {
                   child: Text(
                     '扫码',
                     style: TextStyle(
-                      fontSize: 14.w,
+                      fontSize: w(14),
                       fontWeight: FontWeight.bold,
                     ),
                   ),
@@ -53,7 +51,7 @@ class _MyAppState extends State<MyApp> {
                   child: Text(
                     '局域网发现',
                     style: TextStyle(
-                      fontSize: 14.w,
+                      fontSize: w(14),
                       fontWeight: FontWeight.bold,
                     ),
                   ),
@@ -68,7 +66,7 @@ class _MyAppState extends State<MyApp> {
                   child: Text(
                     'NFC碰一碰',
                     style: TextStyle(
-                      fontSize: 14.w,
+                      fontSize: w(14),
                       fontWeight: FontWeight.bold,
                     ),
                   ),
@@ -83,7 +81,7 @@ class _MyAppState extends State<MyApp> {
                   child: Text(
                     '扫码',
                     style: TextStyle(
-                      fontSize: 14.w,
+                      fontSize: w(14),
                       fontWeight: FontWeight.bold,
                     ),
                   ),
@@ -98,7 +96,7 @@ class _MyAppState extends State<MyApp> {
                   child: Text(
                     '局域网发现',
                     style: TextStyle(
-                      fontSize: 14.w,
+                      fontSize: w(14),
                       fontWeight: FontWeight.bold,
                     ),
                   ),
@@ -113,7 +111,7 @@ class _MyAppState extends State<MyApp> {
                   child: Text(
                     'NFC碰一碰',
                     style: TextStyle(
-                      fontSize: 14.w,
+                      fontSize: w(14),
                       fontWeight: FontWeight.bold,
                     ),
                   ),
@@ -128,7 +126,7 @@ class _MyAppState extends State<MyApp> {
                   child: Text(
                     '扫码',
                     style: TextStyle(
-                      fontSize: 14.w,
+                      fontSize: w(14),
                       fontWeight: FontWeight.bold,
                     ),
                   ),
@@ -143,7 +141,7 @@ class _MyAppState extends State<MyApp> {
                   child: Text(
                     '局域网发现',
                     style: TextStyle(
-                      fontSize: 14.w,
+                      fontSize: w(14),
                       fontWeight: FontWeight.bold,
                     ),
                   ),
@@ -158,7 +156,7 @@ class _MyAppState extends State<MyApp> {
                   child: Text(
                     'NFC碰一碰',
                     style: TextStyle(
-                      fontSize: 14.w,
+                      fontSize: w(14),
                       fontWeight: FontWeight.bold,
                     ),
                   ),
@@ -209,7 +207,7 @@ class _WrapContainerListState extends State<WrapContainerList> {
           return Wrap(
             crossAxisAlignment: WrapCrossAlignment.center,
             spacing: 0,
-            runSpacing: 0.w,
+            runSpacing: 0,
             children: [
               ...widget.children
                   .map(
@@ -248,20 +246,20 @@ class CheckContainer extends StatelessWidget {
     return Container(
       decoration: isCheck
           ? BoxDecoration(
-              borderRadius: BorderRadius.circular(16.w),
+              borderRadius: BorderRadius.circular(context.w(16)),
               border: Border.all(
                 color: Theme.of(context).primaryColor,
-                width: 2.w,
+                width: context.w(2),
               ),
             )
           : BoxDecoration(
-              borderRadius: BorderRadius.circular(16.w),
+              borderRadius: BorderRadius.circular(context.w(16)),
               border: Border.all(
                 color: Colors.transparent,
-                width: 2.w,
+                width: context.w(2),
               ),
             ),
-      padding: EdgeInsets.all(4.w),
+      padding: EdgeInsets.all(context.w(4)),
       child: GestureDetector(
         onTap: () {
           onChanged?.call(value!);
@@ -269,15 +267,15 @@ class CheckContainer extends StatelessWidget {
         child: Container(
           decoration: BoxDecoration(
             color: const Color(0xffeaeaea),
-            borderRadius: BorderRadius.circular(12.w),
+            borderRadius: BorderRadius.circular(context.w(12)),
             // border: Border.all(
             //   color: Colors.grey.withOpacity(0.2),
             //   width: 2.w,
             // ),
           ),
           padding: EdgeInsets.symmetric(
-            horizontal: 20.w,
-            vertical: 16.w,
+            horizontal: context.w(20),
+            vertical: context.w(16),
           ),
           child: Center(child: child),
         ),

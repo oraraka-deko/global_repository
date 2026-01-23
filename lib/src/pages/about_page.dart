@@ -114,7 +114,7 @@ class AboutPage extends StatelessWidget {
                                 suffix: Text(
                                   '$appVersion($versionCode)',
                                   style: TextStyle(
-                                    color: colorScheme.onSurface.opacity06,
+                                    color: colorScheme.onSurface.opacity60,
                                     fontSize: context.l(16),
                                   ),
                                 ),
@@ -124,7 +124,7 @@ class AboutPage extends StatelessWidget {
                                 suffix: Text(
                                   'dev',
                                   style: TextStyle(
-                                    color: colorScheme.onSurface.opacity06,
+                                    color: colorScheme.onSurface.opacity60,
                                     fontSize: context.l(16),
                                   ),
                                 ),
@@ -171,7 +171,7 @@ class AboutPage extends StatelessWidget {
                                   title: '${applicationName ?? '应用'} ${S.current.openSourceLink}',
                                   suffix: Icon(
                                     Icons.arrow_forward_ios,
-                                    size: 16.w,
+                                    size: 16,
                                   ),
                                   onTap: () async {
                                     String url = openSourceLink!;
@@ -188,7 +188,7 @@ class AboutPage extends StatelessWidget {
                             ],
                           ),
                         ),
-                        SizedBox(height: 16.w),
+                        SizedBox(height: context.w(16)),
                         GlobalCardItem(
                           padding: EdgeInsets.zero,
                           child: Column(
@@ -198,14 +198,14 @@ class AboutPage extends StatelessWidget {
                                   title: '服务条款',
                                   suffix: Icon(
                                     Icons.arrow_forward_ios,
-                                    size: 16.w,
+                                    size: context.w(16),
                                   ),
                                 ),
                               _SettingItem(
                                 title: S.current.privacyPolicy,
                                 suffix: Icon(
                                   Icons.arrow_forward_ios,
-                                  size: 16.w,
+                                  size: context.w(16),
                                 ),
                                 onTap: () {
                                   openPage(const PrivacyPage(), title: '隐私政策');
@@ -215,7 +215,7 @@ class AboutPage extends StatelessWidget {
                                 title: S.current.OpenSourceLicenses,
                                 suffix: Icon(
                                   Icons.arrow_forward_ios,
-                                  size: 16.w,
+                                  size: context.w(16),
                                 ),
                                 onTap: () {
                                   openPage(
@@ -229,7 +229,7 @@ class AboutPage extends StatelessWidget {
                             ],
                           ),
                         ),
-                        SizedBox(height: 16.w),
+                        SizedBox(height: context.w(16)),
                         GlobalCardItem(
                           padding: EdgeInsets.zero,
                           child: Column(
@@ -238,17 +238,17 @@ class AboutPage extends StatelessWidget {
                                 title: 'github.com/mengyanshou',
                                 subTitle: '关注开发者Github',
                                 prefix: Padding(
-                                  padding: EdgeInsets.symmetric(vertical: 8.w),
+                                  padding: EdgeInsets.symmetric(vertical: context.w(8)),
                                   child: ClipOval(
                                     child: Image.network(
                                       '$baseUri/YanTool/image/hong.jpg',
-                                      width: 44.w,
+                                      width: context.w(44),
                                     ),
                                   ),
                                 ),
                                 suffix: Icon(
                                   Icons.arrow_forward_ios,
-                                  size: 16.w,
+                                  size: context.w(16),
                                 ),
                                 onTap: () async {
                                   const String url = 'https://github.com/mengyanshou';
@@ -262,22 +262,22 @@ class AboutPage extends StatelessWidget {
                                   }
                                 },
                               ),
-                              SizedBox(height: 8.w),
+                              SizedBox(height: context.w(8)),
                               _SettingItem(
                                 title: '梦魇兽',
                                 subTitle: '关注开发者酷安',
                                 prefix: Padding(
-                                  padding: EdgeInsets.symmetric(vertical: 8.w),
+                                  padding: EdgeInsets.symmetric(vertical: context.w(8)),
                                   child: ClipOval(
                                     child: Image.network(
                                       '$baseUri/YanTool/image/hong.jpg',
-                                      width: 44.w,
+                                      width: context.w(44),
                                     ),
                                   ),
                                 ),
                                 suffix: Icon(
                                   Icons.arrow_forward_ios,
-                                  size: 16.w,
+                                  size: context.w(16),
                                 ),
                                 onTap: () async {
                                   const String url = 'http://www.coolapk.com/u/1345256';
@@ -291,22 +291,22 @@ class AboutPage extends StatelessWidget {
                                   }
                                 },
                               ),
-                              SizedBox(height: 8.w),
+                              SizedBox(height: context.w(8)),
                               _SettingItem(
                                 title: '其他相关软件下载',
                                 subTitle: '“无界”、“魇·工具箱”、“速享”、“Code FA”等相关作品下载',
                                 prefix: Padding(
-                                  padding: EdgeInsets.symmetric(vertical: 8.w),
+                                  padding: EdgeInsets.symmetric(vertical: context.w(8)),
                                   child: ClipOval(
                                     child: Image.network(
                                       '$baseUri/YanTool/image/hong.jpg',
-                                      width: 44.w,
+                                      width: context.w(44),
                                     ),
                                   ),
                                 ),
                                 suffix: Icon(
                                   Icons.arrow_forward_ios,
-                                  size: 16.w,
+                                  size: context.w(16),
                                 ),
                                 onTap: () async {
                                   String url = '$baseUri';
@@ -323,18 +323,18 @@ class AboutPage extends StatelessWidget {
                             ],
                           ),
                         ),
-                        SizedBox(height: 16.w),
+                        SizedBox(height: context.w(16)),
                         if (license != null)
                           GlobalCardItem(
                             child: SizedBox(
                               width: double.infinity,
                               child: Padding(
-                                padding: EdgeInsets.all(context.l(10)),
+                                padding: EdgeInsets.all(context.w(10)),
                                 child: Text(
                                   license!,
                                   style: TextStyle(
                                     color: colorScheme.onSurface,
-                                    fontSize: context.l(14),
+                                    fontSize: context.w(14),
                                   ),
                                 ),
                               ),
@@ -416,14 +416,14 @@ class _SettingItemState extends State<_SettingItem> {
                                 final String content = widget.subTitle;
                                 return Column(
                                   children: [
-                                    SizedBox(height: 4.w),
+                                    SizedBox(height: context.w(4)),
                                     Text(
                                       content,
                                       style: TextStyle(
                                         color: Theme.of(context).textTheme.bodyMedium?.color?.withOpacity(0.6),
                                         fontWeight: FontWeight.w500,
                                         // height: 1.0,
-                                        fontSize: 12.w,
+                                        fontSize: context.w(12),
                                       ),
                                     ),
                                   ],
@@ -459,11 +459,11 @@ class GlobalCardItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Material(
-      borderRadius: BorderRadius.circular(12.w),
+      borderRadius: BorderRadius.circular(context.w(12)),
       clipBehavior: Clip.hardEdge,
       color: backgroundColor ?? Theme.of(context).colorScheme.surfaceContainer,
       child: Padding(
-        padding: padding ?? EdgeInsets.all(8.w),
+        padding: padding ?? EdgeInsets.all(context.w(8)),
         child: child,
       ),
     );

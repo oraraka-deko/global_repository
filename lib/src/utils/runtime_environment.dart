@@ -23,8 +23,8 @@ class RuntimeEnvir {
   static bool _isInit = false;
   static Map<String, dynamic> _environment = {};
   static Map<String, dynamic> get environment => _environment;
-  static String? _packageName;
-  static String? get packageName => _packageName;
+  static late String _packageName;
+  static String get packageName => _packageName;
 
   static bool get isDesktop => Platform.isWindows || Platform.isMacOS || Platform.isLinux;
 

@@ -148,7 +148,7 @@ class _LoggerViewState extends State<LoggerView> {
           Align(
             alignment: Alignment.topRight,
             child: NiCardButton(
-              color: Theme.of(context).colorScheme.primary.opacity02,
+              color: Theme.of(context).colorScheme.primary.opacity20,
               onTap: () {
                 List<LogEntity> logData = Log.defaultLogger.buffer;
                 if (logData.isEmpty) {
@@ -206,10 +206,10 @@ class CheckContainer extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(10.w),
+        borderRadius: BorderRadius.circular(context.w(10)),
         border: Border.all(
           color: Colors.transparent,
-          width: 2.w,
+          width: context.w(2),
         ),
       ),
       child: GestureWithScale(
@@ -220,11 +220,11 @@ class CheckContainer extends StatelessWidget {
           duration: const Duration(milliseconds: 200),
           decoration: BoxDecoration(
             color: value ? Theme.of(context).primaryColor : Theme.of(context).colorScheme.onSurface,
-            borderRadius: BorderRadius.circular(8.w),
+            borderRadius: BorderRadius.circular(context.w(8)),
           ),
           child: Center(
             child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 8.w),
+              padding: EdgeInsets.symmetric(horizontal: context.w(12), vertical: context.w(8)),
               child: Text(
                 data,
                 style: TextStyle(

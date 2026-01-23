@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:global_repository/global_repository.dart';
 
+/// Fuck xiaomi
 class SafeAreaFix extends StatefulWidget {
   const SafeAreaFix({
     super.key,
@@ -24,7 +25,7 @@ class _SafeAreaFixState extends State<SafeAreaFix> {
     if (padding.top > 50) {
       return Padding(
         padding: EdgeInsets.only(
-          top: 32.w,
+          top: context.w(32),
         ),
         child: MediaQuery.removePadding(
           context: context,

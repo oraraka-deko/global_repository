@@ -25,9 +25,10 @@ class _TopTabState extends State<TopTab> with SingleTickerProviderStateMixin {
   late AnimationController controller;
   late Animation offset;
   int? index;
-  double tabWidth = 120.w;
-  double tabHeight = GetPlatform.isLinux ? 32.w : 24.w;
-  double paddingTop = 4.w;
+  late double tabWidth = w(120);
+  // TODO: 为什么 Liux 需要更高的 tabHeight？
+  late double tabHeight = GetPlatform.isLinux ? w(32) : w(24);
+  late double paddingTop = w(4);
 
   @override
   void initState() {
@@ -51,7 +52,7 @@ class _TopTabState extends State<TopTab> with SingleTickerProviderStateMixin {
   }
 
   void listenOpenPage() {
-    offset = Tween<double>(begin: offset.value, end: (tabWidth + 10.w) * tabController.pageindex).animate(controller);
+    offset = Tween<double>(begin: offset.value, end: (tabWidth + w(10)) * tabController.pageindex).animate(controller);
     controller.reset();
     controller.forward();
   }
@@ -87,7 +88,7 @@ class _TopTabState extends State<TopTab> with SingleTickerProviderStateMixin {
                 child: DragToMoveArea(
                   child: Padding(
                     padding: EdgeInsets.only(
-                      left: GetPlatform.isMacOS ? 60.w : 0,
+                      left: GetPlatform.isMacOS ? w(60) : 0,
                     ),
                     child: Stack(
                       fit: StackFit.expand,
@@ -112,17 +113,17 @@ class _TopTabState extends State<TopTab> with SingleTickerProviderStateMixin {
                                         color: Theme.of(context).colorScheme.surface,
                                         child: SizedBox(
                                           height: tabHeight,
-                                          width: 10.w,
+                                          width: w(10),
                                         ),
                                       ),
                                       Material(
                                         color: tabColor,
                                         borderRadius: BorderRadius.only(
-                                          bottomRight: Radius.circular(16.w),
+                                          bottomRight: Radius.circular(w(16)),
                                         ),
                                         child: SizedBox(
                                           height: tabHeight,
-                                          width: 10.w,
+                                          width: w(10),
                                         ),
                                       ),
                                     ],
@@ -133,8 +134,8 @@ class _TopTabState extends State<TopTab> with SingleTickerProviderStateMixin {
                                     decoration: BoxDecoration(
                                       color: Theme.of(context).colorScheme.surface,
                                       borderRadius: BorderRadius.only(
-                                        topLeft: Radius.circular(12.w),
-                                        topRight: Radius.circular(12.w),
+                                        topLeft: Radius.circular(w(12)),
+                                        topRight: Radius.circular(w(12)),
                                       ),
                                     ),
                                   ),
@@ -144,17 +145,17 @@ class _TopTabState extends State<TopTab> with SingleTickerProviderStateMixin {
                                         color: Theme.of(context).colorScheme.surface,
                                         child: SizedBox(
                                           height: tabHeight,
-                                          width: 10.w,
+                                          width: w(10),
                                         ),
                                       ),
                                       Material(
                                         color: tabColor,
                                         borderRadius: BorderRadius.only(
-                                          bottomLeft: Radius.circular(16.w),
+                                          bottomLeft: Radius.circular(w(16)),
                                         ),
                                         child: SizedBox(
                                           height: tabHeight,
-                                          width: 10.w,
+                                          width: w(10),
                                         ),
                                       ),
                                     ],
@@ -171,17 +172,17 @@ class _TopTabState extends State<TopTab> with SingleTickerProviderStateMixin {
                             physics: BouncingScrollPhysics(),
                             child: Row(
                               children: [
-                                SizedBox(width: 10.w),
+                                SizedBox(width: w(10)),
                                 for (int i = 0; i < widget.children.length; i++)
                                   Padding(
-                                    padding: EdgeInsets.only(top: paddingTop, right: 10.w),
+                                    padding: EdgeInsets.only(top: paddingTop, right: w(10)),
                                     child: InkWell(
                                       splashColor: Colors.transparent,
                                       highlightColor: Colors.transparent,
                                       hoverColor: Colors.transparent,
                                       onTap: () {
                                         index = 0;
-                                        offset = Tween<double>(begin: offset.value, end: (tabWidth + 10.w) * i).animate(controller);
+                                        offset = Tween<double>(begin: offset.value, end: (tabWidth + w(10)) * i).animate(controller);
                                         controller.reset();
                                         controller.forward();
                                         setState(() {});
@@ -215,12 +216,12 @@ class _TopTabState extends State<TopTab> with SingleTickerProviderStateMixin {
                                                     child: Center(
                                                       child: Icon(
                                                         Icons.clear,
-                                                        size: 18.w,
+                                                        size: w(18),
                                                       ),
                                                     ),
                                                   ),
                                                 ),
-                                                SizedBox(width: 8.w),
+                                                SizedBox(width: w(8)),
                                               ],
                                             ),
                                           ],
@@ -316,10 +317,10 @@ class _LinuxActionButtonsState extends State<LinuxActionButtons> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 24.w,
+      height: w(24),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.end,
-        spacing: 8.w,
+        spacing: w(8),
         children: [
           // Expanded(
           //   child: DragToMoveArea(
@@ -335,13 +336,13 @@ class _LinuxActionButtonsState extends State<LinuxActionButtons> {
             child: Container(
               decoration: BoxDecoration(
                 color: Theme.of(context).colorScheme.surfaceContainerHighest,
-                borderRadius: BorderRadius.all(Radius.circular(12.w)),
+                borderRadius: BorderRadius.all(Radius.circular(w(12))),
               ),
-              height: 24.w,
-              width: 24.w,
+              height: w(24),
+              width: w(24),
               child: Icon(
                 Icons.minimize,
-                size: 16.w,
+                size: w(16),
               ),
             ),
           ),
@@ -358,13 +359,13 @@ class _LinuxActionButtonsState extends State<LinuxActionButtons> {
             child: Container(
               decoration: BoxDecoration(
                 color: Theme.of(context).colorScheme.surfaceContainerHighest,
-                borderRadius: BorderRadius.all(Radius.circular(12.w)),
+                borderRadius: BorderRadius.all(Radius.circular(w(12))),
               ),
-              height: 24.w,
-              width: 24.w,
+              height: w(24),
+              width: w(24),
               child: Icon(
                 isFull ? Icons.unfold_less : Icons.unfold_more,
-                size: 16.w,
+                size: w(16),
               ),
             ),
           ),
@@ -375,17 +376,17 @@ class _LinuxActionButtonsState extends State<LinuxActionButtons> {
             child: Container(
               decoration: BoxDecoration(
                 color: Theme.of(context).colorScheme.surfaceContainerHighest,
-                borderRadius: BorderRadius.all(Radius.circular(12.w)),
+                borderRadius: BorderRadius.all(Radius.circular(w(12))),
               ),
-              height: 24.w,
-              width: 24.w,
+              height: w(24),
+              width: w(24),
               child: Icon(
                 Icons.close,
-                size: 16.w,
+                size: w(16),
               ),
             ),
           ),
-          SizedBox(width: 8.w),
+          SizedBox(width: w(8)),
         ],
       ),
     );

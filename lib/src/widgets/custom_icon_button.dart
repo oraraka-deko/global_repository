@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:global_repository/global_repository.dart';
+import 'package:global_repository/src/screen_adaptor/view_metric.dart';
 
 class NiIconButton extends StatelessWidget {
   const NiIconButton({Key? key, this.child, this.onTap}) : super(key: key);
@@ -9,13 +9,13 @@ class NiIconButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       child: Container(
-        width: 48.w,
-        height: 48.w,
+        width: context.w(48),
+        height: context.w(48),
         child: InkWell(
-          borderRadius: BorderRadius.circular(24.w),
+          borderRadius: BorderRadius.circular(context.w(24)),
           onTap: onTap,
           child: Padding(
-            padding: EdgeInsets.all(12.w),
+            padding: EdgeInsets.all(context.w(12)),
             child: child,
           ),
         ),

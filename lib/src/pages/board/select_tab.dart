@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:global_repository/src/widgets/widgets.dart';
+import 'package:global_repository/src/screen_adaptor/view_metric.dart';
 import 'package:responsive_framework/responsive_framework.dart';
 
 class SelectTab<T> extends StatefulWidget {
@@ -21,7 +21,7 @@ class _SelectTabState<T> extends State<SelectTab<T>> {
   late List<String> tabs = widget.tabs;
   int selectValue = 0;
   late TextStyle style = TextStyle(
-    fontSize: l(20),
+    fontSize: w(20),
     fontWeight: FontWeight.bold,
     color: Colors.white,
   );
@@ -34,7 +34,7 @@ class _SelectTabState<T> extends State<SelectTab<T>> {
     return SingleChildScrollView(
       scrollDirection: Axis.horizontal,
       child: Row(
-        spacing: l(20),
+        spacing: w(20),
         children: [
           for (int i = 0; i < tabs.length; i++)
             Builder(builder: (context) {
@@ -46,18 +46,18 @@ class _SelectTabState<T> extends State<SelectTab<T>> {
                   setState(() {});
                 },
                 child: Container(
-                  height: ResponsiveBreakpoints.of(context).isMobile ? l(36) : l(40),
+                  height: ResponsiveBreakpoints.of(context).isMobile ? w(36) : w(40),
                   decoration: BoxDecoration(
                     color: isSelect ? colorScheme.primary : colorScheme.surfaceContainer,
-                    borderRadius: BorderRadius.circular(l(12)),
+                    borderRadius: BorderRadius.circular(w(12)),
                   ),
-                  padding: EdgeInsets.symmetric(horizontal: l(16)),
+                  padding: EdgeInsets.symmetric(horizontal: w(16)),
                   child: Center(
                     child: Text(
                       tabs[i],
                       style: style.copyWith(
                         color: isSelect ? colorScheme.onPrimary : colorScheme.onSurface,
-                        fontSize: l(16),
+                        fontSize: w(16),
                       ),
                     ),
                   ),
