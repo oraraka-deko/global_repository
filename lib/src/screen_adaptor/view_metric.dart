@@ -5,6 +5,13 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:signale/signale.dart';
 
+/// {@template screen_adapt_dollar}
+/// 屏幕适配宽度
+/// Screen adaptation width
+/// 起初是全局的，后来某些场景下，一个 App 可能同时以不同的布局出现在一个屏幕中
+/// 所以现在的屏幕适配信息是通过 InheritedWidget 来传递的
+/// {@endtemplate}
+
 class ViewMetric extends InheritedWidget {
   ViewMetric({
     required this.uiWidth,
@@ -61,8 +68,8 @@ class ViewMetric extends InheritedWidget {
   }
 
   double setWidth(num width) {
-    // Log.i('scale -> $scale', tag: 'ScreenAdapter');
-    return _cache[width.toDouble()] ?? (width.toDouble() * scale);
+    // TODO: 感觉不应该用 cache
+    return _cache[width.toDouble()] ?? (width * scale);
   }
 
   static ViewMetric of(BuildContext context) {
@@ -82,17 +89,19 @@ extension ViewMetricStateExt on State {
   double w(num width) => ViewMetric.of(context).setWidth(width);
 
   double v(num percent) => ViewMetric.of(context).v(percent);
+
+  /// {@macro screen_adapt_dollar}
+  double $(num width) => w(width);
 }
 
 extension ViewMetricContextExt on BuildContext {
   @Deprecated('Use w(num width) instead')
   double l(num width) => w(width);
 
-  double w(num width) {
-    return ViewMetric.of(this).setWidth(width);
-  }
+  double w(num width) => ViewMetric.of(this).setWidth(width);
 
-  double v(num percent) {
-    return ViewMetric.of(this).v(percent);
-  }
+  double v(num percent) => ViewMetric.of(this).v(percent);
+
+  /// {@macro screen_adapt_dollar}
+  double $(num width) => w(width);
 }
