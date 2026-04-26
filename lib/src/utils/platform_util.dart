@@ -75,12 +75,6 @@ class PlatformUtil {
     return map;
   }
 
-  static Map<String, String> environmentByPackage(String packageName) {
-    final Map<String, String> map = Map.from(Platform.environment);
-    map['PATH'] = RuntimeEnvir.binPath + ';' + map['PATH']!;
-    return map;
-  }
-
   static Future<bool> cmdIsExist(String cmd) async {
     String stderr;
     String stdout;

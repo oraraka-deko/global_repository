@@ -1,5 +1,6 @@
 import 'dart:ui';
 
+const int _opacity08 = 20;
 const int _opacity10 = 25;
 const int _opacity15 = 38;
 const int _opacity20 = 51;
@@ -8,6 +9,10 @@ const int _opacity60 = 153;
 const int _opacity80 = 204;
 
 extension ColorExtension on Color {
+  Color get opacity08 {
+    return withAlpha(_opacity08);
+  }
+
   Color get opacity10 {
     return withAlpha(_opacity10);
   }

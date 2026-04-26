@@ -1,10 +1,10 @@
 // toast.dart
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:global_repository/src/screen_adaptor/view_metric.dart';
 import 'package:global_repository/src/widgets/safearea_fix.dart';
 
-@Deprecated('Use Toast.show instead')
 void showToast(
   String message, {
   Duration duration = const Duration(milliseconds: 1000),
@@ -16,24 +16,50 @@ void showToast(
 }
 
 class Toast {
+  static OverlayEntry? _current;
+
   static void show(
     String message, {
     Duration duration = const Duration(milliseconds: 1000),
   }) {
-    final overlay = ToastOverlayHost.overlay;
-    if (overlay == null) {
-      throw FlutterError('ToastOverlayHost not mounted');
-    }
+    SchedulerBinding.instance.addPostFrameCallback((_) {
+      final overlay = _rootOverlay;
+      if (overlay == null) return;
 
-    final entry = ToastEntry(message: message).build();
+      _current?.remove();
 
-    overlay.insert(entry);
+      final entry = ToastEntry(message: message).build();
+      _current = entry;
 
-    Future.delayed(duration).then((_) {
-      Future.delayed(const Duration(milliseconds: 800), () {
-        entry.remove();
+      overlay.insert(entry);
+
+      Future.delayed(duration).then((_) {
+        Future.delayed(const Duration(milliseconds: 800), () {
+          entry.remove();
+          if (_current == entry) {
+            _current = null;
+          }
+        });
       });
     });
+  }
+
+  static OverlayState? get _rootOverlay {
+    final root = WidgetsBinding.instance.rootElement;
+    if (root == null) return null;
+
+    OverlayState? overlay;
+
+    void visitor(Element element) {
+      if (element is StatefulElement && element.state is OverlayState) {
+        overlay = element.state as OverlayState;
+        return;
+      }
+      element.visitChildElements(visitor);
+    }
+
+    root.visitChildElements(visitor);
+    return overlay;
   }
 }
 
@@ -46,7 +72,6 @@ class ToastEntry {
     return OverlayEntry(
       builder: (context) {
         final width = MediaQuery.of(context).size.width;
-
         return Positioned(
           bottom: context.w(64),
           width: width,
@@ -76,36 +101,6 @@ class ToastEntry {
           ),
         );
       },
-    );
-  }
-}
-
-class ToastOverlayHost extends StatefulWidget {
-  const ToastOverlayHost({super.key, required this.child});
-
-  final Widget child;
-
-  static OverlayState? overlay;
-
-  @override
-  State<ToastOverlayHost> createState() => _ToastOverlayHostState();
-}
-
-class _ToastOverlayHostState extends State<ToastOverlayHost> {
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    ToastOverlayHost.overlay ??= Overlay.of(context);
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Overlay(
-      initialEntries: [
-        OverlayEntry(
-          builder: (_) => widget.child,
-        ),
-      ],
     );
   }
 }

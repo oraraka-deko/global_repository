@@ -82,8 +82,6 @@ extension ViewMetricStateExt on State {
   double w(num width) => ViewMetric.of(context).setWidth(width);
 
   double v(num percent) => ViewMetric.of(context).v(percent);
-
-  double $(num width) => w(width);
 }
 
 extension ViewMetricContextExt on BuildContext {
