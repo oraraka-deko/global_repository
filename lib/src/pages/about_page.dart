@@ -23,8 +23,7 @@ String _defaultApplicationName(BuildContext context) {
 }
 
 String baseUri = 'http://nightmare.press';
-
-// const int opacity
+String profileUrl = 'https://bkkj.run/apps/github-profile.png';
 
 /// 关于页面
 class AboutPage extends StatelessWidget {
@@ -241,7 +240,7 @@ class AboutPage extends StatelessWidget {
                                   padding: EdgeInsets.symmetric(vertical: context.w(8)),
                                   child: ClipOval(
                                     child: Image.network(
-                                      '$baseUri/YanTool/image/hong.jpg',
+                                      profileUrl,
                                       width: context.w(44),
                                     ),
                                   ),
@@ -270,7 +269,7 @@ class AboutPage extends StatelessWidget {
                                   padding: EdgeInsets.symmetric(vertical: context.w(8)),
                                   child: ClipOval(
                                     child: Image.network(
-                                      '$baseUri/YanTool/image/hong.jpg',
+                                      profileUrl,
                                       width: context.w(44),
                                     ),
                                   ),
@@ -299,7 +298,7 @@ class AboutPage extends StatelessWidget {
                                   padding: EdgeInsets.symmetric(vertical: context.w(8)),
                                   child: ClipOval(
                                     child: Image.network(
-                                      '$baseUri/YanTool/image/hong.jpg',
+                                      profileUrl,
                                       width: context.w(44),
                                     ),
                                   ),

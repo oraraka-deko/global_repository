@@ -1,3 +1,4 @@
+// TODO: remove
 class GlobalAssets {
   static const String localAreaNetwork = 'packages/global_repository/assets/icon/lan.svg';
   static const String qrCode = 'packages/global_repository/assets/icon/qr_code.svg';

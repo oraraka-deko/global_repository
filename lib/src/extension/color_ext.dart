@@ -16,7 +16,7 @@ extension ColorExtension on Color {
 
   /// Flutter 废弃了 withOpacity，但实际上，UI 中还是使用比例来表示透明度
   /// 但是我不希望会有代码上的警告
-  /// 不能从
+  /// Flutter 不能从
   /// ```dart
   /// Color withOpacity(double opacity) {
   ///   assert(opacity >= 0.0 && opacity <= 1.0);
