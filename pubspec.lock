@@ -469,9 +469,11 @@ packages:
   xterm:
     dependency: "direct main"
     description:
-      path: "../xterm.dart"
-      relative: true
-    source: path
+      path: "."
+      ref: HEAD
+      resolved-ref: "7e82ab2c5b798fb8bc79e9fc730ccfe547ca2ce2"
+      url: "https://github.com/oraraka-deko/xterm.dart"
+    source: git
     version: "4.0.0"
   zmodem:
     dependency: transitive

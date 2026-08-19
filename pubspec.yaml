@@ -25,7 +25,7 @@ dependencies:
   window_manager: ^0.3.0
   intl: any
   xterm:
-    path: ../xterm.dart
+    git: https://github.com/oraraka-deko/xterm.dart
 
   dio: ^5.9.0
   retrofit: any
